@@ -8,8 +8,9 @@ const API_URL_PRINCIPAL = 'https://api.allorigins.win/get?url=' + encodeURICompo
 
 
 const App = () => {
-  const [podcast, setPodcast] = useState([]);
+  let [podcast, setPodcast] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [term, setTerm] = useState("");
 
   const getPodcast = async () => {
     console.log(isLoading)
@@ -22,7 +23,16 @@ const App = () => {
     console.log(datos)
   }
 
+  const handleChange = (e) => {
+    e.preventDefault();
+    setTerm(e.target.value)
+  }
 
+  if (term.length > 0) {
+    podcast = podcast.filter((podcast) => {
+      return podcast.title.label.toLowerCase().match(term.toLowerCase())
+    })
+  }
   useEffect(() => {
     setTimeout(() => {
       getPodcast().then(
@@ -31,11 +41,18 @@ const App = () => {
 
   }, [])
 
+
   return (
     <div className="App container mx-auto px-4">
 
       <NavBar />
-      <SearchBar />
+      <input
+        type="text"
+        className="mt-5 block w-full px-4 py-2 text-purple-700 bg-white border rounded-full focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+        placeholder="Buscar..."
+        onChange={handleChange}
+        value={term}
+      />
       {
         !isLoading
           ? (

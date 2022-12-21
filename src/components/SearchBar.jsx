@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-function SearchBar() {
+function SearchBar({ onSearchSubmit }) {
+  const [term, setTerm] = useState("");
+
+  useEffect(() => {
+    if (term !== "") {
+      onSearchSubmit(term);
+    }
+  }, [term, onSearchSubmit]);
+
   return (
     <div className="flex items-center py-4">
       <div className="flex">
@@ -8,6 +16,8 @@ function SearchBar() {
           type="text"
           className="block w-full px-4 py-2 text-purple-700 bg-white border rounded-full focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
           placeholder="Buscar..."
+          onChange={(e) => setTerm(e.target.value)}
+          value={term}
         />
         <button className="px-4 text-white bg-purple-600 rounded-full ">
           <svg
