@@ -2,7 +2,6 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import PodcastCard from './components/PodcastCard';
 import NavBar from './components/NavBar';
-import SearchBar from './components/SearchBar';
 
 const API_URL_PRINCIPAL = 'https://api.allorigins.win/get?url=' + encodeURIComponent('https://itunes.apple.com/es/rss/toppodcasts/limit=12/genre=1310/json');
 
